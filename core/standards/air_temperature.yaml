@@ -35,7 +35,7 @@ extra_attrs:
   coverage_content_type: physicalMeasurement
   ncei_name: AIR TEMPERATURE
   standard_name_url: https://vocab.nerc.ac.uk/collection/P07/current/CFSN0023
-comment: |
+comments: |
   Air temperature does what it says on the tin.
 
   Pretty much everyone actually uses celsius as a unit rather than kelvin.

@@ -6,6 +6,7 @@ use standard_knowledge::StandardsLibrary;
 pub mod filter;
 pub mod knowledge_loader;
 pub mod qc;
+pub mod validate;
 
 #[derive(Parser)]
 struct Cli {
@@ -35,6 +36,9 @@ enum Commands {
 
     /// QARTOD test suites
     Qc(qc::QcArgs),
+
+    /// Validate knowledge YAML files without rebuilding
+    Validate(validate::ValidateArgs),
 }
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
@@ -54,6 +58,12 @@ fn main() {
 
     let mut library = StandardsLibrary::default();
     library.load_cf_standards();
+
+    // Validation only needs CF standards to check against
+    if let Commands::Validate(validate_args) = &cli.command {
+        validate::execute(validate_args, &library);
+        return;
+    }
 
     // Handle knowledge loading based on CLI arguments
     if cli.knowledge_sources.is_empty() {
@@ -111,6 +121,7 @@ fn main() {
         Commands::Qc(qc_args) => {
             qc::execute(qc_args, &library);
         }
+        Commands::Validate(_) => unreachable!("handled before loading knowledge"),
     }
 }
 

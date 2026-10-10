@@ -1,0 +1,4 @@
+long_name: Not a Standard
+ioos_category: temperature
+related_standards:
+- also_not_a_standard

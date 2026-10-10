@@ -197,9 +197,19 @@ Knowledge keys:
 - `other_units` - Other units that may be used rather than the one defined in the standard.
 - `comments` - What others may need to know about a standard. How is the standard used, rather than the CF description of how it is defined. Notes about implementation.
 
+To check knowledge files without rebuilding the library, run the CLI's `validate` command on files or directories:
+
+```sh
+cargo run -p standard_knowledge_cli -- validate core/standards/air_pressure_at_mean_sea_level.yaml
+```
+
+It reports YAML syntax errors, values of the wrong shape (with line and column), and keys the library doesn't use (such as a misspelled `comment` for `comments`), which are otherwise silently ignored.
+It warns when the file isn't named for a CF standard, when related or sibling standards aren't CF standards, and when `ioos_category` isn't one of ERDDAP's known categories.
+The `validate-knowledge` pre-commit hook runs it on changed files in `core/standards/`.
+
 > [!NOTE]
 >
-> - IOOS categories are not (_currently_) validated, but the set of known values (derived from ERDDAP's internal list) is in [core/src/ioos_categories.rs](./core/src/ioos_categories.rs).
+> - IOOS categories only produce warnings, but the set of known values (derived from ERDDAP's internal list) is in [core/src/ioos_categories.rs](./core/src/ioos_categories.rs).
 
 ## Contributing Code
 

@@ -1,0 +1,18 @@
+bin.name = "standard_knowledge"
+args = ["validate", "../core/standards"]
+stdout = """
+392 knowledge file(s) valid
+"""
+stderr = """
+../core/standards/cell_thickness.yaml: warning: `numerics` is not a known ERDDAP ioos_category
+../core/standards/fluorescence_of_dissolved_organic_matter.yaml: warning: `fluorescence_of_dissolved_organic_matter` is not a CF standard name, so this knowledge will not be applied
+../core/standards/mole_concentration_of_diatoms_expressed_as_nitrogen_in_sea_water.yaml: warning: `biology` is not a known ERDDAP ioos_category
+../core/standards/mole_concentration_of_organic_detritus_expressed_as_nitrogen_in_sea_water.yaml: warning: `dissolved_nutrients` is not a known ERDDAP ioos_category
+../core/standards/mole_concentration_of_organic_detritus_expressed_as_silicon_in_sea_water.yaml: warning: `dissolved_nutrients` is not a known ERDDAP ioos_category
+../core/standards/mole_concentration_of_particulate_organic_matter_expressed_as_nitrogen_in_sea_water.yaml: warning: `dissolved_nutrients` is not a known ERDDAP ioos_category
+../core/standards/mole_fraction_carbon_dioxide_in_water.yaml: warning: `mole_fraction_carbon_dioxide_in_water` is not a CF standard name, so this knowledge will not be applied
+../core/standards/ocean_vertical_heat_diffusivity.yaml: warning: `physical_oceanography` is not a known ERDDAP ioos_category
+../core/standards/ocean_vertical_momentum_diffusivity.yaml: warning: `physical_oceanography` is not a known ERDDAP ioos_category
+../core/standards/sea_surface_height_above_geoid.yaml: warning: `sea_level` is not a known ERDDAP ioos_category
+../core/standards/surface_downward_mole_flux_of_carbon_dioxide.yaml: warning: `co2` is not a known ERDDAP ioos_category
+"""

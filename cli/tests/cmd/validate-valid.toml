@@ -1,0 +1,6 @@
+bin.name = "standard_knowledge"
+args = ["validate", "./tests/load_knowledge"]
+stdout = """
+3 knowledge file(s) valid
+"""
+stderr = ""

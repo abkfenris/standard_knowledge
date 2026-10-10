@@ -72,13 +72,12 @@ fn find_knowledge() -> Vec<PathBuf> {
     knowledge_files
 }
 
-fn load_knowledge(path: &PathBuf) -> Knowledge {
+fn load_knowledge(path: &PathBuf) -> Result<Knowledge, serde_yaml_ng::Error> {
     let name = &path.file_stem().unwrap();
     let contents = fs::read_to_string(path).expect("Unable to read knowledge");
 
-    let partial_knowledge: YamlKnowledge = serde_yaml_ng::from_str(&contents)
-        .expect(format!("Failed to parse knowledge from {}", path.display()).as_str());
-    Knowledge {
+    let partial_knowledge: YamlKnowledge = serde_yaml_ng::from_str(&contents)?;
+    Ok(Knowledge {
         name: name.to_str().unwrap().to_string(),
         long_name: partial_knowledge.long_name,
         ioos_category: partial_knowledge.ioos_category,
@@ -89,16 +88,27 @@ fn load_knowledge(path: &PathBuf) -> Knowledge {
         other_units: partial_knowledge.other_units.unwrap_or_default(),
         comments: partial_knowledge.comments,
         qc: partial_knowledge.qc,
-    }
+    })
 }
 
 fn write_knowledge() {
     let knowledge_paths = find_knowledge();
     let mut loaded_knowledge = Vec::new();
 
+    // Debug builds skip broken knowledge, so the CLI can still be built to
+    // run `validate` on it. Release builds must include all knowledge.
+    let release = env::var("PROFILE").is_ok_and(|profile| profile == "release");
+
     for path in knowledge_paths {
-        let knowledge = load_knowledge(&path);
-        loaded_knowledge.push(knowledge);
+        match load_knowledge(&path) {
+            Ok(knowledge) => loaded_knowledge.push(knowledge),
+            Err(e) if !release => println!(
+                "cargo::warning=Skipping knowledge {}: {e}. Check it with `cargo run -p standard_knowledge_cli -- validate {}`",
+                path.display(),
+                path.display()
+            ),
+            Err(e) => panic!("Failed to parse knowledge from {}: {e}", path.display()),
+        }
     }
 
     let out_dir = env::var_os("OUT_DIR").unwrap();

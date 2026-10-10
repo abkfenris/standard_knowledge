@@ -5,7 +5,8 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
-        exclude: docs/mkdocs.yml
+        # The validate CLI tests include intentionally broken YAML
+        exclude: ^(docs/mkdocs\.yml|cli/tests/validate/sea_water_salinity\.yaml)$
       - id: debug-statements
       - id: mixed-line-ending
 
@@ -73,6 +74,13 @@ repos:
         language: system
         pass_filenames: false
         files: ^core/standards/.*\.yaml$
+      - id: validate-knowledge
+        name: validate-knowledge
+        description: Check that standard knowledge YAML files parse and have known keys
+        entry: cargo run --quiet --package standard_knowledge_cli -- validate
+        language: system
+        files: ^core/standards/.*\.ya?ml$
+        exclude: ^core/standards/_cf_standards\.yaml$
 
   - repo: https://github.com/adamchainz/blacken-docs
     rev: "fda77690955e9b63c6687d8806bafd56a526e45f"  # frozen: 1.20.0

@@ -1,0 +1,14 @@
+bin.name = "standard_knowledge"
+args = ["validate", "./tests/validate"]
+status.code = 1
+stdout = ""
+stderr = """
+./tests/validate/air_temperature.yaml: error: unknown key `comment`
+./tests/validate/air_temperature.yaml: error: unknown key `qc.example.tests.qartod.gross_range_tst`
+./tests/validate/not_a_standard.yaml: warning: `not_a_standard` is not a CF standard name, so this knowledge will not be applied
+./tests/validate/not_a_standard.yaml: warning: `also_not_a_standard` in `related_standards` is not a CF standard name or alias
+./tests/validate/not_a_standard.yaml: warning: `temperature` is not a known ERDDAP ioos_category
+./tests/validate/sea_water_salinity.yaml: error: invalid YAML: did not find expected ',' or ']' at line 2 column 1, while parsing a flow sequence at line 1 column 12
+./tests/validate/sea_water_temperature.yaml: error: invalid knowledge: qc.example.tests.qartod.gross_range_test.fail_span: invalid type: integer `3`, expected a tuple of size 2 at line 11 column 22
+3 of 4 knowledge file(s) failed validation
+"""

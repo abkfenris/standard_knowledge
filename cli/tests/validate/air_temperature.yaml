@@ -1,0 +1,14 @@
+standard_name: air_temperature
+long_name: Air Temperature
+ioos_category: Meteorology
+comment: Should be `comments`
+qc:
+  example:
+    name: Example
+    summary: Example tests
+    description: An example suite with a misspelled test
+    tests:
+      qartod:
+        gross_range_tst:
+          suspect_span: [0, 1]
+          fail_span: [0, 1]

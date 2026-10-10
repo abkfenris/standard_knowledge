@@ -1,0 +1,11 @@
+long_name: Sea Water Temperature
+qc:
+  example:
+    name: Example
+    summary: Example tests
+    description: Gross range spans need two values
+    tests:
+      qartod:
+        gross_range_test:
+          suspect_span: [0, 1]
+          fail_span: 3
