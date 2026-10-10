@@ -104,6 +104,19 @@ bare constants.
 Calling a bare function name without parentheses (`sin`) is an error, and so
 is calling a function with the wrong number of arguments.
 
+### Variables
+
+This module adds one thing to ioos_qc's language. Besides the four
+statistics, the caller can supply other named values, such as the arguments
+and constants of a YAML test suite (`mllw - 4.5 * ft`). A variable:
+
+- is used as a bare word. Calling it, as in `mllw(1)`, is an invalid identifier.
+- must be a word that isn't a function name, or `PI` or `E` in any letter
+  case (`fx::is_valid_variable_name`).
+
+ioos_qc only knows the four statistics, so an expression that uses any other
+variable can't be evaluated there.
+
 ## Evaluation
 
 An expression is compiled to a postfix program and evaluated by popping from
