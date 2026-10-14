@@ -25,7 +25,7 @@ repos:
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: '321478e58f4938179c6b86e4ddfa923d1547a49b'  # frozen: v0.16.6
+    rev: '2eeb5678de71a00c0902cbda7105d328432f72cb'  # frozen: v0.16.8
     hooks:
       - id: ruff-format
       - id: ruff-check
@@ -86,10 +86,10 @@ repos:
     - id: mdformat
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: "922fba1f8fd9f9f096d04586e54369a31e6c1c31"  # frozen: v2.5.12
+    rev: "df12125767e3be2d945f0239811b308ff2a32c3f"  # frozen: v2.5.14
     hooks:
     -   id: biome-check
-        additional_dependencies: ["@biomejs/biome@2.5.12"]
+        additional_dependencies: ["@biomejs/biome@2.5.14"]
 
   - repo: https://github.com/scientific-python/cookie
     rev: "2026.08.14" # frozen: 2026.08.14
@@ -102,7 +102,7 @@ repos:
         entry: repo-review py
 
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 88f91743e9f3b117720681f1c0e7998283579c94  # frozen: 44.111.3
+    rev: d2a3ab824ea083fab872bbebb22d50f587307e19  # frozen: 44.139.0
     hooks:
       - id: renovate-config-validator
         args: [--strict]
